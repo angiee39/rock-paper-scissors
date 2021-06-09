@@ -1,42 +1,31 @@
-// Scenarios
-// A: Paper beats rock
-let a = "Paper beats Rock";
-// B: Rock beats scissors
-let b = "Rock beats Scissors";
-// C: Scissors beats paper
-let c = "Scissors beats Paper";
-
-// If player wins
-let d = "You Win!";
-// If player lose
-let e = "You Lose!";
-// If draw
-let f = "It's a Draw!";
 
 // Player score
-let g = 0;
+let playerScore = 0;
 // Computer score
-let h = 0;
+let compScore = 0;
 
-function playerSelection() {
+function playerPlay() {
     
-    // let x = window.prompt("Rock, Paper or Scissors?:");
-    // let player_input = x.toLowerCase();
-    // return player_input;
-    return ("rock")
+    while (true)
+    {
+        let rawInput = window.prompt("Rock, Paper or Scissors?:");
+        let playerInput = rawInput.toLowerCase();
+        if (rawInput == "rock" || rawInput == "paper" || rawInput == "scissors")
+        {
+            return playerInput;
+            break;
+        }
+    }
 }
 
-function computerSelection() {
+function computerPlay() {
 
-    // Generate 3 random numbers and assign them to either rock, paper or scissors
-    let y = Math.floor(Math.random() * 3);
-    
-    if (y == 0)
+    let ranNum = Math.floor(Math.random() * 3);
+    if (ranNum == 0)
     {
         return ("rock");
     }
-
-    else if (y == 1)
+    else if (ranNum == 1)
     {
         return ("paper");
     }
@@ -44,68 +33,69 @@ function computerSelection() {
     {
         return ("scissors");
     }
-
 }
-
 
 // Single round
 function playRound(playerSelection, computerSelection) {
     
+    playerSelection = playerPlay();
+    computerSelection = computerPlay();
+    
     if (playerSelection == "paper" && computerSelection == "rock")
     {
-        g++;
-        return(d + " " + a);
+        playerScore++;
+        return("You Win! Paper beats Rock.");
     }
     else if (playerSelection == "paper" && computerSelection == "scissors")
     {
-        h++;
-        return(e + " " + c);
+        compScore++;
+        return("You lose! Scissors beat Paper.");
     }
     else if (playerSelection == "rock" && computerSelection == "paper")
     {
-        h++;
-        return(e + " " + a);
+        compScore++;
+        return("You Lose! Paper beats Rock.");
     }
     else if (playerSelection == "rock" && computerSelection == "scissors")
     {
-        g++;
-        return(d + " " + b);
+        playerScore++;
+        return("You Win! Rock beats Scissors.");
     }
     else if (playerSelection == "scissors" && computerSelection == "rock")
     {
-        h++;
-        return(e + " " + b);
+        compScore++;
+        return("You Lose! Rock beats Scissors.");
     }
     else if (playerSelection == "scissors" && computerSelection == "paper")
     {
-        g++;
-        return(d + " " + c);
+        playerScore++;
+        return("You Win! Scissors beats Paper.");
     }
-    else (playerSelection == computerSelection)
+    else if (playerSelection == computerSelection)
     {
-        return f;
+        return ("It's a Draw!");
     }
 }
 
 // Multiple rounds
-function game(playRound) {
+function game() {
 
     for(let i = 0; i < 5; i++)
     {
         console.log(playRound());
     }
-    if (g > h)
+    if (playerScore > compScore)
     {
-        console.log(d + " Score is " + g + ":" + h);
+        console.log("You Win! Score is " + playerScore + ":" + compScore);
     }
-    else if (g < h)
+    else if (playerScore < compScore)
     {
-        console.log(e + " Score is " + g + ":" + h);
+        console.log("You Lose! Score is " + playerScore + ":" + compScore);
     }
     else
     {
-        return ("It's a Draw");
+        console.log("It's a Draw! Score is " + playerScore + ":" + compScore);
     }
 }
 
-game(playRound)
+game(playRound);
